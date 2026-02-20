@@ -38,3 +38,7 @@ https://qubicdb.github.io/docs/
 ## License
 
 MIT
+
+---
+
+Developed by [Deniz Umut Dereli](https://github.com/denizumutdereli)
