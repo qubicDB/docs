@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>QubicDB API Reference</title>
+    <meta name="description" content="QubicDB HTTP API — brain-like recursive memory database for LLMs." />
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" />
+    <style>
+      body { margin: 0; background: #0a0a0f; }
+      .swagger-ui .topbar { background: #0d0d14; border-bottom: 1px solid #27272a; }
+      .swagger-ui .topbar-wrapper .link span { display: none; }
+      .swagger-ui .topbar-wrapper::before {
+        content: "qubicDB API Reference";
+        color: #fff;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="./swagger-ui-bundle.js" charset="UTF-8"></script>
+    <script src="./swagger-ui-standalone-preset.js" charset="UTF-8"></script>
+    <script>
+      window.onload = function () {
+        window.ui = SwaggerUIBundle({
+          url: "./openapi.yaml",
+          dom_id: '#swagger-ui',
+          presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
+          ],
+          plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+          layout: "StandaloneLayout",
+          deepLinking: true,
+          displayRequestDuration: true,
+          defaultModelsExpandDepth: 1,
+          defaultModelExpandDepth: 1,
+          docExpansion: "list",
+          filter: true,
+          showExtensions: true,
+          showCommonExtensions: true,
+        });
+      };
+    </script>
+  </body>
+</html>
