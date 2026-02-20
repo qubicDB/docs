@@ -2,6 +2,10 @@
 
 Official documentation for [QubicDB](https://github.com/qubicDB/qubicdb) — a brain-like recursive memory database for LLMs.
 
+## Live
+
+https://qubicdb.github.io/docs/
+
 ## Contents
 
 | File | Description |
