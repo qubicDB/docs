@@ -815,6 +815,8 @@ When `mcp.enabled=true`, the MCP server mounts at `mcp.path` (default `/mcp`) us
 
 ### Built-in tools
 
+#### Single-Index Tools
+
 | Tool | Description |
 |---|---|
 | `qubicdb_write` | Write a memory to an index |
@@ -823,6 +825,24 @@ When `mcp.enabled=true`, the MCP server mounts at `mcp.path` (default `/mcp`) us
 | `qubicdb_recall` | List recent memories |
 | `qubicdb_context` | Build token-budgeted context from a cue |
 | `qubicdb_registry_find_or_create` | Idempotent registry entry |
+
+#### Cross-Index / Global Tools
+
+| Tool | Description |
+|---|---|
+| `qubicdb_list_indexes` | List all registered indexes with stats (neuron count, last op, metadata) |
+| `qubicdb_global_search` | Search across ALL active indexes with semantic/vector similarity |
+| `qubicdb_multi_search` | Search across a specific list of indexes |
+| `qubicdb_recent_indexes` | Get most recently active indexes sorted by last operation time |
+
+### Cross-Index Workflow Example
+
+```
+1. qubicdb_list_indexes(active_only: true)        → discover available brains
+2. qubicdb_recent_indexes(limit: 10, min_neurons: 5) → find most active ones
+3. qubicdb_global_search(query: "authentication") → search across all indexes
+4. qubicdb_multi_search(index_ids: ["brain-repo1","brain-repo2"], query: "API") → targeted search
+```
 
 ### Tool parameters
 
@@ -844,6 +864,39 @@ When `mcp.enabled=true`, the MCP server mounts at `mcp.path` (default `/mcp`) us
 | `limit` | — | Result limit (default 20) |
 | `metadata` | — | JSON string of `{"key":"value"}` pairs for filter/boost |
 | `strict` | — | `true` = hard filter, `false` = soft boost (default) |
+
+**`qubicdb_list_indexes`**
+
+| Param | Required | Description |
+|---|---|---|
+| `active_only` | — | Only return currently loaded/active indexes (default `false`) |
+| `limit` | — | Max indexes to return (default 100) |
+
+**`qubicdb_global_search`**
+
+| Param | Required | Description |
+|---|---|---|
+| `query` | ✓ | Search query |
+| `depth` | — | Search depth (default 2) |
+| `limit` | — | Result limit per index (default 10) |
+| `metadata` | — | JSON string of `{"key":"value"}` pairs for filter/boost |
+
+**`qubicdb_multi_search`**
+
+| Param | Required | Description |
+|---|---|---|
+| `index_ids` | ✓ | JSON array of index IDs to search (e.g. `["brain-repo1","brain-repo2"]`) |
+| `query` | ✓ | Search query |
+| `depth` | — | Search depth (default 2) |
+| `limit` | — | Result limit per index (default 10) |
+| `metadata` | — | JSON string of `{"key":"value"}` pairs for filter/boost |
+
+**`qubicdb_recent_indexes`**
+
+| Param | Required | Description |
+|---|---|---|
+| `limit` | — | Max indexes to return (default 20) |
+| `min_neurons` | — | Filter indexes with at least this many neurons |
 
 ### Security
 
